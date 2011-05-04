@@ -1,0 +1,20 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=3576
+
+This plugin is a front for the jshint NodeJS cli module.
+This plugin will allow you to run jshint from vim, and shows the results in a split window.
+
+
+Usage
+
+    :JSHint {file}
+
+It default to current file.
+
+
+Keyboard Shortcuts
+
+In the quickfix window, you can use:
+
+    o to open in new window
+    go to preview file (open but maintain focus on jshint results)
+    q to close the quickfix window

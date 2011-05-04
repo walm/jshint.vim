@@ -1,0 +1,35 @@
+*jshint.vim*  A plugin that integrates JSHint with Vim
+
+==============================================================================
+Author:  Andreas Wålm <andreas+jshintvim@walm.net>             *jshint-author*
+License: See *LICENSE* file
+
+==============================================================================
+INTRODUCTION                                                          *jshint*
+
+This plugin is a front for JSHint.
+
+This plugin will allow you to run JSHint from vim, and shows the results in 
+a split window.
+
+:JSHint {file}                                                       *:JSHint*
+
+    Test {file} with jshint.
+    If {file} not provided it uses current file.
+
+    Behaves just like the |:grep| command, but will open the |Quickfix| 
+    window for you. 
+
+Hints found in file will be listed in the split window, along with the 
+line and column number. 
+
+<Enter> on a line in this window will open the file, and place the cursor on 
+the matching line.
+
+Press 'o' in a line in |Quickfix| will open the file in a new window and place
+the cursor on the matching line.
+
+Pressing 'go' will do a preview (open but maintain focus on jshint results)
+
+Press 'q' to close |Quickfix| window.
+
