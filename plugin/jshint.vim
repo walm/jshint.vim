@@ -33,18 +33,32 @@ function! s:JSHint(cmd, args)
         let &grepformat=grepformat_bak
     endtry
 
-    botright copen
+    if len(getqflist()) > 1
 
-    " close quickfix
-    exec "nnoremap <silent> <buffer> q :ccl<CR>"
+      " has errors display quickfix win
+      botright copen
 
-    " open in a new window 
-    exec "nnoremap <silent> <buffer> o <C-W><CR>"
+      " close quickfix
+      exec "nnoremap <silent> <buffer> q :ccl<CR>"
 
-    " preview
-    exec "nnoremap <silent> <buffer> go <CR><C-W><C-W>"
+      " open in a new window 
+      exec "nnoremap <silent> <buffer> o <C-W><CR>"
 
-    redraw!
+      " preview
+      exec "nnoremap <silent> <buffer> go <CR><C-W><C-W>"
+
+      redraw!
+
+    else
+
+      " no error, sweet!
+      cclose
+      redraw
+      echo "JSHint: Lint free"
+
+    end
+    
+
 endfunction
 
 command! -bang -nargs=* -complete=file JSHint call s:JSHint('grep<bang>',<q-args>)
