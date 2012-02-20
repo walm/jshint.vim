@@ -53,8 +53,9 @@ function! s:JSHint(cmd, args)
 
     " no error, sweet!
     cclose
-    redraw
-    echo "JSHint: Lint free"
+    redraw!
+    echo "JSHint ..."
+    echo "JSHint: Lint Free"
 
   end
 endfunction
