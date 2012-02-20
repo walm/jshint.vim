@@ -13,8 +13,6 @@ endif
 
 function! s:JSHint(cmd, args)
   redraw
-  echo "JSHint ..."
-
   " If no file is provided, use current file
   if empty(a:args)
       let l:fileargs = expand("%")
@@ -48,7 +46,6 @@ function! s:JSHint(cmd, args)
     exec "nnoremap <silent> <buffer> go <CR><C-W><C-W>"
 
     redraw!
-
   else
 
     " no error, sweet!
