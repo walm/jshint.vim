@@ -24,14 +24,14 @@ function! s:JSHint(cmd, args)
   let grepformat_bak=&grepformat
   try
     let &grepprg=g:jshintprg
-    let &grepformat="%f: line %l\\,\ col %c\\, %m,%-G"
+    let &grepformat="%f: line %l\\,\ col %c\\, %m,%-G,%-G%s error,%-G%s errors"
     silent execute a:cmd . " " . l:fileargs
   finally
     let &grepprg=grepprg_bak
     let &grepformat=grepformat_bak
   endtry
 
-  if len(getqflist()) > 1
+  if len(getqflist()) > 0
 
     " has errors display quickfix win
     botright copen
