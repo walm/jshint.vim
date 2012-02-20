@@ -24,7 +24,7 @@ function! s:JSHint(cmd, args)
   let grepformat_bak=&grepformat
   try
     let &grepprg=g:jshintprg
-    let &grepformat="%f: line %l\\,\ col %c\\, %m"
+    let &grepformat="%f: line %l\\,\ col %c\\, %m,%-G"
     silent execute a:cmd . " " . l:fileargs
   finally
     let &grepprg=grepprg_bak
