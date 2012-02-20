@@ -15,20 +15,20 @@ function! s:JSHint(cmd, args)
   redraw
   " If no file is provided, use current file
   if empty(a:args)
-      let l:fileargs = expand("%")
+    let l:fileargs = expand("%")
   else
-      let l:fileargs = a:args
+    let l:fileargs = a:args
   end
 
   let grepprg_bak=&grepprg
   let grepformat_bak=&grepformat
   try
-      let &grepprg=g:jshintprg
-      let &grepformat="%f: line %l\\,\ col %c\\, %m"
-      silent execute a:cmd . " " . l:fileargs
+    let &grepprg=g:jshintprg
+    let &grepformat="%f: line %l\\,\ col %c\\, %m"
+    silent execute a:cmd . " " . l:fileargs
   finally
-      let &grepprg=grepprg_bak
-      let &grepformat=grepformat_bak
+    let &grepprg=grepprg_bak
+    let &grepformat=grepformat_bak
   endtry
 
   if len(getqflist()) > 1
