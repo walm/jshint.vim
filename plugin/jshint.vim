@@ -8,57 +8,52 @@
 
 " Location of jshint utility, change in vimrc i different
 if !exists("g:jshintprg")
-	let g:jshintprg="jshint"
+  let g:jshintprg="jshint"
 endif
 
 function! s:JSHint(cmd, args)
-    redraw
-    echo "JSHint ..."
+  redraw
+  " If no file is provided, use current file
+  if empty(a:args)
+    let l:fileargs = expand("%")
+  else
+    let l:fileargs = a:args
+  end
 
-    " If no file is provided, use current file 
-    if empty(a:args)
-        let l:fileargs = expand("%")
-    else
-        let l:fileargs = a:args
-    end
+  let grepprg_bak=&grepprg
+  let grepformat_bak=&grepformat
+  try
+    let &grepprg=g:jshintprg
+    let &grepformat="%f: line %l\\,\ col %c\\, %m,%-G,%-G%s error,%-G%s errors"
+    silent execute a:cmd . " " . l:fileargs
+  finally
+    let &grepprg=grepprg_bak
+    let &grepformat=grepformat_bak
+  endtry
 
-    let grepprg_bak=&grepprg
-    let grepformat_bak=&grepformat
-    try
-        let &grepprg=g:jshintprg
-        let &grepformat="%f: line %l\\,\ col %c\\, %m"
-        silent execute a:cmd . " " . l:fileargs
-    finally
-        let &grepprg=grepprg_bak
-        let &grepformat=grepformat_bak
-    endtry
+  if len(getqflist()) > 0
 
-    if len(getqflist()) > 1
+    " has errors display quickfix win
+    botright copen
 
-      " has errors display quickfix win
-      botright copen
+    " close quickfix
+    exec "nnoremap <silent> <buffer> q :ccl<CR>"
 
-      " close quickfix
-      exec "nnoremap <silent> <buffer> q :ccl<CR>"
+    " open in a new window
+    exec "nnoremap <silent> <buffer> o <C-W><CR>"
 
-      " open in a new window 
-      exec "nnoremap <silent> <buffer> o <C-W><CR>"
+    " preview
+    exec "nnoremap <silent> <buffer> go <CR><C-W><C-W>"
 
-      " preview
-      exec "nnoremap <silent> <buffer> go <CR><C-W><C-W>"
+    redraw!
+  else
 
-      redraw!
+    " no error, sweet!
+    cclose
+    redraw!
+    echo "JSHint: Lint Free"
 
-    else
-
-      " no error, sweet!
-      cclose
-      redraw
-      echo "JSHint: Lint free"
-
-    end
-    
-
+  end
 endfunction
 
 command! -bang -nargs=* -complete=file JSHint call s:JSHint('grep<bang>',<q-args>)
