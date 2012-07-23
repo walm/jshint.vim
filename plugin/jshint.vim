@@ -25,7 +25,13 @@ function! s:JSHint(cmd, args)
   try
     let &grepprg=g:jshintprg
     let &grepformat="%f: line %l\\,\ col %c\\, %m,%-G,%-G%s error,%-G%s errors"
-    silent execute a:cmd . " " . l:fileargs
+    let cmdline = [a:cmd]
+    if exists("g:jshintconfig")
+      call add(cmdline, '--config')
+      call add(cmdline, g:jshintconfig)
+    end
+    call add(cmdline, l:fileargs)
+    silent execute join(cmdline)
   finally
     let &grepprg=grepprg_bak
     let &grepformat=grepformat_bak
