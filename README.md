@@ -12,7 +12,7 @@ You have to install [jshint](http://jshint.org/), of course.
 
 Install on a system with npm:
 
-    npm install jshint
+    sudo npm install -g jshint
 
 Otherwise, you are on your own.
 
