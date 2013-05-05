@@ -1,0 +1,5 @@
+:JSHint	jshint.txt	/*:JSHint*
+LICENSE	jshint.txt	/*LICENSE*
+jshint	jshint.txt	/*jshint*
+jshint-author	jshint.txt	/*jshint-author*
+jshint.vim	jshint.txt	/*jshint.vim*
