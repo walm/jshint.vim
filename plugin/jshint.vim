@@ -12,7 +12,12 @@ if !exists("g:jshintprg")
 endif
 
 function! s:JSHint(cmd, args)
-    redraw
+    set lazyredraw
+    cclose
+    if &readonly == 0
+      update
+    endif
+
     echo "JSHint ..."
 
     " If no file is provided, use current file 
@@ -36,7 +41,9 @@ function! s:JSHint(cmd, args)
     if len(getqflist()) > 1
 
       " has errors display quickfix win
-      botright copen
+      execute 'belowright copen'
+
+      setlocal wrap
 
       " close quickfix
       exec "nnoremap <silent> <buffer> q :ccl<CR>"
@@ -47,14 +54,16 @@ function! s:JSHint(cmd, args)
       " preview
       exec "nnoremap <silent> <buffer> go <CR><C-W><C-W>"
 
+      set nolazyredraw
       redraw!
 
     else
 
       " no error, sweet!
-      cclose
-      redraw
+      hi Green ctermfg=green
+      echohl Green
       echo "JSHint: Lint free"
+      echohl
 
     end
     
