@@ -38,7 +38,7 @@ function! s:JSHint(cmd, args)
         let &grepformat=grepformat_bak
     endtry
 
-    if len(getqflist()) > 1
+    if len(getqflist()) >= 1
 
       " has errors display quickfix win
       execute 'belowright copen'
@@ -54,20 +54,18 @@ function! s:JSHint(cmd, args)
 
       " preview
       exec "nnoremap <silent> <buffer> go <CR><C-W><C-W>"
+    endif
 
     set nolazyredraw
     redraw!
 
-    else
-
+    if len(getqflist()) == 0
       " no error, sweet!
       hi Green ctermfg=green
       echohl Green
       echon "JSHint: Lint free"
       echohl
-
-    end
-    
+    endif
 
 endfunction
 
