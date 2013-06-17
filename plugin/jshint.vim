@@ -47,6 +47,7 @@ function! s:JSHint(cmd, args)
 
       " close quickfix
       exec "nnoremap <silent> <buffer> q :ccl<CR>"
+      exec "nnoremap <silent> <buffer> c :ccl<CR>"
 
       " open in a new window 
       exec "nnoremap <silent> <buffer> o <C-W><CR>"
@@ -54,15 +55,15 @@ function! s:JSHint(cmd, args)
       " preview
       exec "nnoremap <silent> <buffer> go <CR><C-W><C-W>"
 
-      set nolazyredraw
-      redraw!
+    set nolazyredraw
+    redraw!
 
     else
 
       " no error, sweet!
       hi Green ctermfg=green
       echohl Green
-      echo "JSHint: Lint free"
+      echon "JSHint: Lint free"
       echohl
 
     end
